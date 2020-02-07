@@ -17,6 +17,18 @@ public class Book {
 
 	public Book() {
 	}
+	
+	
+
+	public Book(String author, String title, String isbn, int year) {
+		super();
+		this.author = author;
+		this.title = title;
+		this.isbn = isbn;
+		this.year = year;
+	}
+
+
 
 	public String getAuthor() {
 		return author;
