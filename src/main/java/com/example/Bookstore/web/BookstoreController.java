@@ -32,6 +32,8 @@ public class BookstoreController {
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveBook(Book book) {
+		//.save toimii niin, että jos tallennettavan kirjan ID täsmää jo taulussa olevan kirjan ID:seen,
+		// tallennetaan kirja silloin kyseisen ID:n kohdalle
 		repository.save(book);
 
 		return "redirect:booklist";
