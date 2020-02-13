@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
+<link href="css/styles.css" type="text/css" rel="stylesheet" th:href="@{css/styles.css}">
 <title>List of books</title>
 </head>
 <body>
-	<h1>Add a new book</h1>
+	<header>Add a new book</header>
 
 	<div>
 		<form th:object="${book}" th:action="@{/save}" method="post" action="#">
