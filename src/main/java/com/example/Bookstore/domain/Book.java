@@ -18,7 +18,6 @@ public class Book {
 	public Book() {
 	}
 	
-	
 
 	public Book(String author, String title, String isbn, int year) {
 		super();

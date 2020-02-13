@@ -19,15 +19,18 @@ public class BookstoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner studentDemo(BookRepository repository) {
+	public CommandLineRunner bookDemo(BookRepository repository) {
 		return (args) -> {
 			log.info("save a couple of books");
 			repository.save(new Book("Keijo Kakkula", "Silmälasien A-Ö", "2342342-46", 2017));
 			repository.save(new Book("Juha Yypeli", "Musigs", "234342542-26", 2020));
+			repository.save(new Book("Janne Nacci", "Rakas päiväkirjani", "4596834-905", 2019));
+			
 
 			log.info("fetch all books");
 			for (Book book : repository.findAll()) {
 				log.info(book.toString());
+				System.out.println("HEY BITSEEES");
 			}
 
 		};
