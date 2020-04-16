@@ -9,47 +9,55 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.Bookstore.domain.Book;
 import com.example.Bookstore.domain.BookRepository;
+import com.example.Bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookstoreController {
 
 	@Autowired
-	private BookRepository repository;
+	private BookRepository brepo;
 
+	@Autowired
+	private CategoryRepository crepo;
+
+	// show all books
 	@RequestMapping(value = { "/", "/booklist" }, method = RequestMethod.GET)
 	public String bookList(Model model) {
-		model.addAttribute("books", repository.findAll());
-		System.out.println("HELLO BEBE");
+		model.addAttribute("books", brepo.findAll());
 		return "booklist";
 	}
-
+	// add a book
 	@RequestMapping(value = "/add")
 	public String addBook(Model model) {
 		model.addAttribute("book", new Book());
+		model.addAttribute("categories", crepo.findAll());
 
 		return "addbook";
 	}
-
+	// save a new book
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveBook(Book book) {
-		//.save toimii niin, että jos tallennettavan kirjan ID täsmää jo taulussa olevan kirjan ID:seen,
+		// .save toimii niin, että jos tallennettavan kirjan ID täsmää jo taulussa
+		// olevan kirjan ID:seen,
 		// tallennetaan kirja silloin kyseisen ID:n kohdalle
-		repository.save(book);
+		brepo.save(book);
 
 		return "redirect:booklist";
 	}
-
+	// delete a book
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") Long bookId, Model model) {
-		repository.deleteById(bookId);
-		
+		brepo.deleteById(bookId);
+
 		return "redirect:../booklist";
 	}
-
+	// edit a book
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String editBook(@PathVariable("id") Long bookId, Model model) {
 
-		model.addAttribute("book", repository.findById(bookId));
+		
+		model.addAttribute("book", brepo.findById(bookId));
+		model.addAttribute("categories", crepo.findAll());
 
 		return "editbook";
 	}

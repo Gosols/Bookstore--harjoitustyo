@@ -4,30 +4,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	private String author;
 	private String title;
 	private String isbn;
 	private int year;
 
+	@ManyToOne
+	@JoinColumn(name = "categoryid")
+	private Category category;
+
 	public Book() {
 	}
-	
 
-	public Book(String author, String title, String isbn, int year) {
+	public Book(String author, String title, String isbn, int year, Category category) {
 		super();
 		this.author = author;
 		this.title = title;
 		this.isbn = isbn;
 		this.year = year;
+		this.category = category;
 	}
-
-
 
 	public String getAuthor() {
 		return author;
@@ -57,16 +61,24 @@ public class Book {
 		return year;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 }

@@ -2,31 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<link href="css/styles.css" type="text/css" rel="stylesheet" th:href="@{css/styles.css}">
-<title>List of books</title>
+<link href="css/styles.css" type="text/css" rel="stylesheet"
+	th:href="@{css/styles.css}">
+<title>Add book</title>
 </head>
 <body>
 	<header>Add a new book</header>
 
-	<div>
-		<form th:object="${book}" th:action="@{/save}" method="post" action="#">
-		<label>Title: </label>
-		<br>
-		<input type="text" th:field="*{title}" />
-		<br>
-		<label>Author: </label>
-		<br>
-		<input type="text" th:field="*{author}"/>
-		<br>
-		<label>ISBN: </label>
-		<br>
-		<input type="text" th:field="*{isbn}" />
-		<br>
-		<label>Year: </label>
-		<br>
-		<input type="text" th:field="*{year}" />
-		<br>
-		<input type="submit" value="Add" />
+	<div id="content">
+		<form th:object="${book}" th:action="@{/save}" method="post"
+			action="#">
+			<label>Title: </label> <br> <input type="text"
+				th:field="*{title}" /> <br> <label>Author: </label> <br>
+			<input type="text" th:field="*{author}" /> <br> <label>ISBN:
+			</label> <br> <input type="text" th:field="*{isbn}" /> <br> <label>Year:
+			</label> <br> <input type="text" th:field="*{year}" /> <br> <label>Category:
+			</label> <br> <select th:field="*{category}" class="form-control">
+				<option th:each="category: ${categories}" th:value="${category.getId()}"
+					th:text="${category.getName()}"></option>
+			</select> <br> <br> <input id="button" type="submit" value="Add" />
+			<br>
+			<a href="../booklist" id="addbutton">Cancel</a>
 		</form>
 	</div>
 </body>

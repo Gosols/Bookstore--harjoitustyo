@@ -1,36 +1,35 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html
+        xmlns:th="http://www.thymeleaf.org">
 <head>
-<link href="css/styles.css" type="text/css" rel="stylesheet" th:href="@{css/styles.css}">
-<title>List of books</title>
+    <link href="css/styles.css" type="text/css" rel="stylesheet"
+          th:href="@{css/styles.css}">
+    <title>Edit book</title>
 </head>
 <body>
-	<header>Edit book</header>
+<header>Edit book</header>
 
-	 <div>
-		<form th:object="${book}" th:action="@{../save}" method="post" action="#">
-		
-		<label for="id"></label>
-		<input type="hidden" id="id" th:field="*{id}" readonly="readonly" />
-		<label for="title">Title: </label>
-		<br>
-		<input type="text" id="title" th:field="*{title}" />
-		<br>
-		<label for="author">Author: </label>
-		<br>
-		<input type="text" id="author" th:field="*{author}"/>
-		<br>
-		<label for="isbn">ISBN: </label>
-		<br>
-		<input type="text" id="isbn" th:field="*{isbn}" />
-		<br>
-		<label for="year">Year: </label>
-		<br>
-		<input id="year" type="text" th:field="*{year}" />
-		<br>
-		<input id="button" type="submit" value="Add" />
-		</form>
-	</div>
+<div>
+    <form th:object="${book}" th:action="@{../save}" method="post"
+          action="#">
+
+        <label for="id"></label> <input type="hidden" id="id" th:field="*{id}" readonly="readonly"/>
+        <label for="title">Title:
+        </label> <br> <input type="text" id="title" th:field="*{title}"/> <br>
+        <label for="author">Author: </label> <br> <input type="text"
+                                                         id="author" th:field="*{author}"/> <br> <label for="isbn">ISBN:
+    </label> <br>
+        <input type="text" id="isbn" th:field="*{isbn}"/> <br>
+        <label for="year">Year: </label> <br> <input id="year"
+                                                     type="text" th:field="*{year}"/> <br>
+        <select
+                th:field="*{category}" class="form-control">
+            <option th:each="category: ${categories}" th:value="${category.getId()}"
+                    th:text="${category.getName()}"></option>
+        </select>
+        <input id="button" type="submit" value="Save"/> <br> <a
+            href="../booklist" id="addbutton">Cancel</a>
+    </form>
+</div>
 </body>
 </html>
