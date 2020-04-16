@@ -1,5 +1,7 @@
 package com.example.Bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +20,7 @@ public class Book {
 	private int year;
 
 	@ManyToOne
+	@JsonManagedReference
 	@JoinColumn(name = "categoryid")
 	private Category category;
 

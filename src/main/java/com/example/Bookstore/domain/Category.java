@@ -1,5 +1,7 @@
 package com.example.Bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,6 +19,7 @@ public class Category {
 	private Long id;
 	private String name;
 
+	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<Book> books;
 
