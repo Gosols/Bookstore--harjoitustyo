@@ -1,6 +1,7 @@
 package com.example.Bookstore.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class BookstoreController {
 
     // add a book
     @RequestMapping(value = "/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("categories", crepo.findAll());
@@ -39,6 +41,7 @@ public class BookstoreController {
 
     // save a new book
     @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String saveBook(Book book) {
         // .save toimii niin, että jos tallennettavan kirjan ID täsmää jo taulussa
         // olevan kirjan ID:seen,
@@ -50,6 +53,7 @@ public class BookstoreController {
 
     // delete a book
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteBook(@PathVariable("id") Long bookId, Model model) {
         brepo.deleteById(bookId);
 
@@ -58,6 +62,7 @@ public class BookstoreController {
 
     // edit a book
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String editBook(@PathVariable("id") Long bookId, Model model) {
 
 
@@ -67,16 +72,23 @@ public class BookstoreController {
         return "editbook";
     }
 
+    @RequestMapping(value = "/login")
+    public String login() {
+        return "login";
+    }
+
     //REST methods
     @RequestMapping(value = "/books", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public @ResponseBody
     List<Book> booksRest() {
         return (List<Book>) brepo.findAll();
     }
 
-    @RequestMapping(value="/books/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     private @ResponseBody
-    Optional<Book> bookByIdRest(@PathVariable("id") Long bookId){
+    Optional<Book> bookByIdRest(@PathVariable("id") Long bookId) {
         return brepo.findById(bookId);
     }
 

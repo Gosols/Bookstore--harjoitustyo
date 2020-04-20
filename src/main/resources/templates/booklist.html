@@ -1,48 +1,56 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<link href="css/styles.css" type="text/css" rel="stylesheet"
-	th:href="@{css/styles.css}">
-<title>List of books</title>
+    <link href="css/styles.css" type="text/css" rel="stylesheet"
+          th:href="@{css/styles.css}">
+    <title>List of books</title>
 </head>
 
 <body>
-	<header>BookList</header>
-	<div id="listelements">
-		<div id="add">
-			<a href="add" id="addbutton">Add a new book</a>
-		</div>
-		<table>
-			<tbody>
-				<tr>
-					<th >Title</th>
-					<th>Author</th>
-					<th>ISBN</th>
-					<th>Year</th>
-					<th>Category</th>
-					<th></th>
-					<th></th>
-				</tr>
+<header>BookList
 
-				<tr th:each="book : ${books}">
-					<td th:text="${book.title}">title</td>
-					<td th:text="${book.author}">author</td>
-					<td th:text="${book.isbn}">isbn</td>
-					<td th:text="${book.year}">year</td>
-					<td th:text="${book.category.name}"></td>
-					<td><a id="button" th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
-					<td><a id="button" th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td>
+    <form th:action="@{/logout}" method=
+            "post">
+        <input id="addbutton" type="submit" value="Sign Out"/>
+    </form>
+</header>
 
-				</tr>
+<div id="listelements">
 
-			</tbody>
+    <div id="add">
 
-		</table>
+        <a sec:authorize="hasAuthority('ADMIN')" href="add" id="addbutton">Add a new book</a>
+    </div>
+    <table>
+        <tbody>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Year</th>
+            <th>Category</th>
+            <th sec:authorize="hasAuthority('ADMIN')"></th>
+            <th sec:authorize="hasAuthority('ADMIN')"></th>
+        </tr>
 
-	</div>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.title}">title</td>
+            <td th:text="${book.author}">author</td>
+            <td th:text="${book.isbn}">isbn</td>
+            <td th:text="${book.year}">year</td>
+            <td th:text="${book.category.name}"></td>
+            <td sec:authorize="hasAuthority('ADMIN')"><a id="button" th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
+            <td sec:authorize="hasAuthority('ADMIN')"><a id="button" th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td>
 
+        </tr>
 
+        </tbody>
+
+    </table>
+
+</div>
 
 
 </body>
